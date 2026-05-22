@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nasdaq Halt Monitor</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0c141f;
+        --panel: #121f2d;
+        --line: #24384a;
+        --text: #edf5fb;
+        --muted: #93a6b8;
+        --accent: #1fbf7d;
+        --warn: #f7b52d;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 360px;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+      }
+
+      header {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 16px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      header img {
+        width: 40px;
+        height: 40px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.1;
+      }
+
+      .brand-link {
+        display: inline-block;
+        margin-top: 4px;
+        color: var(--accent);
+        font-size: 12px;
+      }
+
+      .subtle {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      main {
+        padding: 14px 16px 16px;
+      }
+
+      section {
+        margin-bottom: 14px;
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 26px;
+      }
+
+      input,
+      textarea,
+      button {
+        font: inherit;
+      }
+
+      input[type="number"] {
+        width: 72px;
+        padding: 7px 8px;
+        color: var(--text);
+        background: #0a111a;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 88px;
+        resize: vertical;
+        margin-top: 6px;
+        padding: 9px;
+        color: var(--text);
+        background: #0a111a;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .codes {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+      }
+
+      .codes label {
+        justify-content: center;
+        padding: 7px 6px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      button {
+        min-height: 36px;
+        padding: 8px 10px;
+        color: var(--text);
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      button.primary {
+        color: #05120d;
+        background: var(--accent);
+        border-color: var(--accent);
+        font-weight: 700;
+      }
+
+      button.warning {
+        color: #1d1400;
+        background: var(--warn);
+        border-color: var(--warn);
+      }
+
+      .status {
+        padding: 10px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        line-height: 1.45;
+      }
+
+      .halts {
+        margin-top: 8px;
+        color: var(--muted);
+        max-height: 70px;
+        overflow: auto;
+      }
+
+      footer {
+        padding-top: 10px;
+        border-top: 1px solid var(--line);
+        text-align: center;
+      }
+
+      footer p {
+        margin: 6px 0 8px;
+        color: var(--muted);
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img src="assets/icon-48.png" alt="">
+      <div>
+        <h1>Nasdaq Halt Monitor</h1>
+        <div class="subtle">Current trade halt alerts</div>
+        <a class="brand-link" href="https://vigyaanvest.com" target="_blank" rel="noreferrer">by VigyaanVest.com</a>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <label>
+          <input id="enabled" type="checkbox">
+          Enable monitoring
+        </label>
+        <div class="row">
+          <label for="intervalMinutes">Poll every</label>
+          <span><input id="intervalMinutes" type="number" min="5" max="300" step="5"> seconds</span>
+        </div>
+      </section>
+
+      <section>
+        <label>
+          <input id="alertAllSymbols" type="checkbox">
+          Alert all symbols
+        </label>
+        <label for="watchlistText" class="subtle">Watchlist symbols, used when alert all is off</label>
+        <textarea id="watchlistText" spellcheck="false" placeholder="AAPL, TSLA, NVDA"></textarea>
+      </section>
+
+      <section>
+        <div class="row">
+          <div class="subtle">Reason codes</div>
+          <a class="subtle" href="https://nasdaqtrader.com/trader.aspx?id=tradehaltcodes" target="_blank" rel="noreferrer">Code meanings</a>
+        </div>
+        <div class="codes">
+          <label><input class="reason" type="checkbox" value="LUDP"> LUDP</label>
+          <label><input class="reason" type="checkbox" value="LUDS"> LUDS</label>
+          <label><input class="reason" type="checkbox" value="T1"> T1</label>
+          <label><input class="reason" type="checkbox" value="T2"> T2</label>
+        </div>
+        <label>
+          <input id="onlyOpenHalts" type="checkbox">
+          Only open halts
+        </label>
+      </section>
+
+      <section class="actions">
+        <button id="save" class="primary">Save</button>
+        <button id="checkNow">Check now</button>
+        <button id="testNotification">Test alert</button>
+        <button id="openSource">Open Nasdaq</button>
+        <button id="resetMemory" class="warning">Reset memory</button>
+      </section>
+
+      <section class="status">
+        <div id="statusText">Loading...</div>
+        <div id="halts" class="halts"></div>
+      </section>
+
+      <footer class="subtle">
+        <span>Powered by VigyaanVest.com</span>
+        <p>AI stock signals with a public, verifiable track record.</p>
+        <a href="https://vigyaanvest.com" target="_blank" rel="noreferrer">Explore VigyaanVest.com</a>
+      </footer>
+    </main>
+
+    <script src="src/popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Market Squawk</title>
+    <link rel="stylesheet" href="src/popup.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="brand">
+          <img src="assets/market-squawk-logo.png" alt="Market Squawk">
+          <h1>Market Squawk</h1>
+        </div>
+        <label class="switch" title="Turn live headline reading on or off">
+          <input id="enabled" type="checkbox">
+          <span></span>
+        </label>
+      </header>
+
+      <section class="status" id="status">Open a supported market news page.</section>
+
+      <section class="control">
+        <label for="voice">Voice</label>
+        <select id="voice"></select>
+      </section>
+
+      <section class="grid">
+        <label>
+          Rate
+          <input id="rate" type="range" min="0.7" max="1.6" step="0.1">
+          <output id="rateValue"></output>
+        </label>
+        <label>
+          Volume
+          <input id="volume" type="range" min="0.2" max="1" step="0.1">
+          <output id="volumeValue"></output>
+        </label>
+      </section>
+
+      <section class="control">
+        <label for="topWindow">Watch Top Items</label>
+        <input id="topWindow" type="number" min="1" max="20">
+      </section>
+
+      <section class="control">
+        <label for="refreshIntervalMinutes">Auto Refresh Minutes</label>
+        <input id="refreshIntervalMinutes" type="number" min="0" max="1440">
+      </section>
+
+      <label class="check">
+        <input id="smartSpeech" type="checkbox">
+        Smart squawk wording
+      </label>
+
+      <label class="check">
+        <input id="readTopOnLoad" type="checkbox">
+        Read watched top items on load
+      </label>
+
+      <label class="check">
+        <input id="honorReadMemory" type="checkbox">
+        Honor read memory
+      </label>
+
+      <section class="control">
+        <div class="section-title">Sources</div>
+        <div id="sourceList" class="source-list"></div>
+      </section>
+
+      <div class="actions">
+        <button id="readTop" type="button">Read Top</button>
+        <button id="testVoice" type="button">Test Voice</button>
+        <button id="stop" type="button">Stop</button>
+      </div>
+
+      <footer class="powered">
+        <span>Powered by VigyaanVest.com</span>
+        <p>AI stock signals with a public, verifiable track record.</p>
+        <a id="vigyaanvestCta" href="https://vigyaanvest.com" target="_blank" rel="noopener">Explore VigyaanVest.com</a>
+      </footer>
+    </main>
+    <script src="src/sources.js"></script>
+    <script src="src/popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "VigyaanVest.com Nasdaq Halts",
+  "description": "Browser-only monitor for current Nasdaq Trade Halts, with watchlist and reason-code alerts. Powered by VigyaanVest.com.",
+  "version": "1.1.1",
+  "action": {
+    "default_title": "Nasdaq Halt Monitor",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "assets/icon-16.png",
+      "32": "assets/icon-32.png",
+      "48": "assets/icon-48.png",
+      "128": "assets/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "icons": {
+    "16": "assets/icon-16.png",
+    "32": "assets/icon-32.png",
+    "48": "assets/icon-48.png",
+    "128": "assets/icon-128.png"
+  },
+  "permissions": [
+    "alarms",
+    "notifications",
+    "scripting",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://www.nasdaqtrader.com/*"
+  ]
+}

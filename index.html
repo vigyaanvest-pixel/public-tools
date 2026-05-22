@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VigyaanVest.com Investor Tools — Open-Source Utilities</title>
+  <meta name="description" content="Open-source, browser-first investor utilities from VigyaanVest.com. Inspect before you use." />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <link rel="canonical" href="https://investortools.vigyaanvest.com/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* VigyaanVest brand palette — light theme matching vigyaanvest.com */
+    :root {
+      --bg:          #f8f8f7;
+      --bg-card:     #ffffff;
+      --bg-card-2:   #eff3f0;
+      --border:      rgba(0,0,0,0.10);
+      --green:       #337344;
+      --green-light: #578861;
+      --green-glow:  rgba(51,115,68,0.08);
+      --muted:       #858481;
+      --text:        #1a1a19;
+      --text-dim:    #34322d;
+      --radius:      10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    a { color: var(--green-light); text-decoration: none; }
+    a:hover { color: var(--text); text-decoration: underline; }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(248,248,247,0.95);
+      box-shadow: 0 1px 0 var(--border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .nav-logo img { height: 30px; }
+    .nav-logo span {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .nav-links { display: flex; gap: 0.2rem; }
+    .nav-link {
+      font-size: 0.84rem;
+      color: var(--text-dim);
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-link:hover {
+      background: var(--bg-card);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 5.5rem 2rem 4.5rem;
+      max-width: 740px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--green-glow);
+      border: 1px solid rgba(51,115,68,0.5);
+      color: var(--green-light);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.75rem;
+    }
+    .hero-badge-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+    .hero h1 {
+      font-size: clamp(2.1rem, 5vw, 3.1rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 .accent { color: var(--green-light); }
+    .hero p {
+      font-size: 1.08rem;
+      color: var(--text-dim);
+      max-width: 560px;
+      margin: 0 auto 2.25rem;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap; }
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--green);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.93rem;
+      padding: 0.65rem 1.5rem;
+      border-radius: 8px;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-cta:hover {
+      background: var(--green-light);
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-dim);
+      font-size: 0.93rem;
+      font-weight: 500;
+      padding: 0.65rem 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-outline:hover {
+      border-color: var(--green-light);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* ── TOOLS ── */
+    .tools-section {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+    }
+    .section-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green-light);
+      margin-bottom: 1.35rem;
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+      gap: 1.25rem;
+    }
+    .tool-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .tool-card:hover {
+      border-color: var(--green);
+      box-shadow: 0 0 0 1px rgba(51,115,68,0.25), 0 4px 16px rgba(0,0,0,0.07);
+    }
+    .tool-header { display: flex; align-items: center; gap: 1rem; }
+    .tool-icon {
+      width: 50px; height: 50px;
+      border-radius: 10px;
+      object-fit: contain;
+      background: var(--bg-card-2);
+      padding: 7px;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+    .tool-name {
+      font-size: 1.08rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+    }
+    .tool-tag {
+      display: inline-block;
+      font-size: 0.69rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--green-glow);
+      color: var(--green-light);
+      border: 1px solid rgba(87,136,97,0.3);
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      margin-top: 0.25rem;
+    }
+    .tool-desc {
+      font-size: 0.91rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+    .tool-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .tool-bullets li {
+      font-size: 0.84rem;
+      color: var(--text-dim);
+      padding-left: 1.25rem;
+      position: relative;
+      line-height: 1.5;
+    }
+    .tool-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-size: 0.75rem;
+      top: 0.1em;
+    }
+    .tool-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--green);
+      color: #fff;
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 0.5rem 1.1rem;
+      border-radius: 7px;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: var(--green-light); text-decoration: none; }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-dim);
+      font-size: 0.84rem;
+      font-weight: 500;
+      padding: 0.5rem 1.1rem;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--green-light);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* ── PRINCIPLES ── */
+    .principles-section {
+      background: var(--bg-card-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 4.5rem 2rem;
+    }
+    .principles-inner { max-width: 940px; margin: 0 auto; }
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 2.25rem;
+      margin-top: 2.25rem;
+    }
+    .principle-icon {
+      font-size: 1.25rem;
+      margin-bottom: 0.6rem;
+    }
+    .principle h3 {
+      font-size: 0.93rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+    .principle p {
+      font-size: 0.83rem;
+      color: var(--text-dim);
+      line-height: 1.65;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 3rem 2rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .footer-logo img { height: 26px; opacity: 0.8; }
+    .footer-logo span {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dim);
+    }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a {
+      font-size: 0.82rem;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--text); text-decoration: none; }
+    .footer-disclaimer {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      padding-top: 1.25rem;
+    }
+
+    /* ── LEGAL STRIP ── */
+    .legal-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .legal-inner {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .legal-summary-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 1.25rem 0;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+    .legal-summary-row::-webkit-details-marker { display: none; }
+    .legal-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 0.1em;
+      color: var(--muted);
+    }
+    .legal-summary-text { flex: 1; }
+    .legal-summary-text strong {
+      display: block;
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 0.2rem;
+    }
+    .legal-summary-text span {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .legal-chevron {
+      flex-shrink: 0;
+      color: var(--muted);
+      transition: transform 0.2s;
+      margin-top: 0.15em;
+    }
+    details[open] .legal-chevron { transform: rotate(180deg); }
+    .legal-body {
+      padding: 0 0 1.75rem 2.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .legal-body h3 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin: 1.35rem 0 0.5rem;
+    }
+    .legal-body h3:first-child { margin-top: 1.25rem; }
+    .legal-body p, .legal-body li {
+      font-size: 0.79rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .legal-body ul {
+      margin: 0.4rem 0 0 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .legal-body .legal-fulllink {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.79rem;
+      font-weight: 600;
+      color: var(--green-light);
+      margin-top: 1.35rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+    .legal-body .legal-fulllink:hover { color: var(--text); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0.85rem 1.25rem; }
+      .nav-logo span { display: none; }
+      .hero { padding: 3.5rem 1.25rem 3rem; }
+      .tools-section { padding: 0 1.25rem 4rem; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .principles-section { padding: 3rem 1.25rem; }
+      .legal-inner { padding: 0 1.25rem; }
+      .legal-body { padding: 0 0 1.5rem 0; }
+      footer { padding: 2.5rem 1.25rem 3rem; }
+      .footer-top { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="https://vigyaanvest.com" aria-label="VigyaanVest.com">
+      <img src="assets/logo.png" alt="VigyaanVest" />
+      <span>VigyaanVest.com</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="https://vigyaanvest.com">Main Site</a>
+      <a class="nav-link" href="https://github.com/vigyaanvest-pixel/investortools">GitHub</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Open Source &nbsp;·&nbsp; Browser-First &nbsp;·&nbsp; Inspect Before You Use
+    </div>
+    <h1>Investor Tools from<br><span class="accent">VigyaanVest.com</span></h1>
+    <p>Free, open-source utilities for serious traders. No accounts, no servers, no data collection — everything runs locally in your browser.</p>
+    <div class="hero-actions">
+      <a class="btn-cta" href="https://github.com/vigyaanvest-pixel/investortools">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        View on GitHub
+      </a>
+      <a class="btn-outline" href="https://vigyaanvest.com">
+        Visit VigyaanVest.com
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <div class="tools-section">
+    <p class="section-label">Available Tools</p>
+    <div class="tools-grid">
+
+      <!-- Market Squawk -->
+      <div class="tool-card">
+        <div class="tool-header">
+          <img class="tool-icon" src="market-squawk/assets/market-squawk-logo.png" alt="Market Squawk" />
+          <div>
+            <div class="tool-name">Market Squawk</div>
+            <div class="tool-tag">Edge / Chrome Extension</div>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Watches supported investor news pages and reads newly detected top headlines aloud.
+          A browser-native alternative to paid squawk services — no subscription required.
+        </p>
+        <ul class="tool-bullets">
+          <li>TradingView News Flow, Finviz, and MarketWatch</li>
+          <li>Smart expansion of tickers and market shorthand</li>
+          <li>Configurable voice, speed, volume, and watch count</li>
+          <li>No account, no server, no data sent anywhere</li>
+        </ul>
+        <div class="tool-actions">
+          <a class="btn-primary" href="https://github.com/vigyaanvest-pixel/investortools/tree/main/market-squawk">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            View on GitHub
+          </a>
+          <a class="btn-ghost" href="https://github.com/vigyaanvest-pixel/investortools/blob/main/market-squawk/README.md">Docs</a>
+        </div>
+      </div>
+
+      <!-- Nasdaq Halt Monitor -->
+      <div class="tool-card">
+        <div class="tool-header">
+          <img class="tool-icon" src="nasdaq-halt-monitor/assets/nasdaq-halt-monitor-logo.png" alt="Nasdaq Halt Monitor" />
+          <div>
+            <div class="tool-name">Nasdaq Halt Monitor</div>
+            <div class="tool-tag">Edge / Chrome Extension</div>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Monitors the public Nasdaq Trader trade halts page and fires browser notifications
+          when matching halt events are detected. No paid data feed required.
+        </p>
+        <ul class="tool-bullets">
+          <li>LUDP, LUDS, T1, T2 and additional halt codes</li>
+          <li>Optional symbol watchlist or broad-halt mode</li>
+          <li>Windows toast notifications and badge alerts</li>
+          <li>Adjustable poll interval, open-halt filter, local alert memory</li>
+        </ul>
+        <div class="tool-actions">
+          <a class="btn-primary" href="https://github.com/vigyaanvest-pixel/investortools/tree/main/nasdaq-halt-monitor">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            View on GitHub
+          </a>
+          <a class="btn-ghost" href="https://github.com/vigyaanvest-pixel/investortools/blob/main/nasdaq-halt-monitor/README.md">Docs</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PHILOSOPHY -->
+  <section class="principles-section">
+    <div class="principles-inner">
+      <p class="section-label">Our Philosophy</p>
+      <div class="principles-grid">
+        <div class="principle">
+          <div class="principle-icon">🔍</div>
+          <h3>Verify Before You Use</h3>
+          <p>Every tool is open source. Read the code, review the manifest, and understand what it does before loading it in developer mode.</p>
+        </div>
+        <div class="principle">
+          <div class="principle-icon">🖥️</div>
+          <h3>Local-First</h3>
+          <p>No accounts, no servers, no external APIs. Settings and data stay in your browser's local storage and never leave your machine.</p>
+        </div>
+        <div class="principle">
+          <div class="principle-icon">⚡</div>
+          <h3>Lightweight by Design</h3>
+          <p>Each extension is built to do one thing well with minimal permissions. No background analytics, no telemetry, no ads.</p>
+        </div>
+        <div class="principle">
+          <div class="principle-icon">🛠️</div>
+          <h3>Community-Inspectable</h3>
+          <p>Published under GPLv3. Fork it, audit it, improve it, or contribute a new source. Open by default.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGAL STRIP -->
+  <div class="legal-strip">
+    <div class="legal-inner">
+      <details>
+        <summary class="legal-summary-row">
+          <span class="legal-icon">⚖</span>
+          <span class="legal-summary-text">
+            <strong>Legal &amp; Disclaimer</strong>
+            <span>These tools are provided "as is" without warranties of any kind. By using any tool in this collection, you agree to hold VigyaanVest.com and its contributors harmless from any claims, losses, or damages arising from your use. Not investment advice. Expand for full terms.</span>
+          </span>
+          <svg class="legal-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+
+        <div class="legal-body">
+
+          <h3>1 · Provided "As Is" — No Warranties</h3>
+          <p>To the maximum extent permitted by applicable law, VigyaanVest.com, its contributors, and distributors provide every tool in this collection <strong>"as is"</strong> and <strong>"as available"</strong>, without warranty of any kind, express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, accuracy, reliability, or non-infringement. VigyaanVest.com does not warrant that alerts, notifications, or data readings will be timely, accurate, or complete, or that source pages will remain available or correctly structured.</p>
+
+          <h3>2 · Limitation of Liability</h3>
+          <p>VigyaanVest.com, its contributors, and distributors are not liable for any trading losses, missed or delayed alerts, incorrect data readings, browser issues, data loss, security incidents, or any direct, indirect, incidental, consequential, special, exemplary, or punitive damages of any kind arising from use, modification, distribution, or inability to use any tool in this collection, even if advised of the possibility of such damages.</p>
+
+          <h3>3 · Hold Harmless</h3>
+          <p>By downloading, installing, using, modifying, or redistributing any tool in this collection, you agree to:</p>
+          <ul>
+            <li>hold VigyaanVest.com and its contributors harmless from any claims, losses, damages, liabilities, costs, or expenses (including legal fees) arising from your use or redistribution;</li>
+            <li>take full responsibility for your own compliance, security review, and usage decisions; and</li>
+            <li>independently verify any market data, halt information, or headlines before acting on them.</li>
+          </ul>
+
+          <h3>4 · No Investment Advice</h3>
+          <p>These tools are market-data monitoring and workflow utilities only. They do not provide investment advice, trade recommendations, execution guidance, or portfolio management of any kind. VigyaanVest.com does not execute trades or manage customer funds. Trading and investing involve substantial risk; past performance does not guarantee future results. You are solely responsible for your investment decisions.</p>
+
+          <h3>5 · Developer-Mode Extensions</h3>
+          <p>These tools are distributed as unpacked developer-mode browser extensions. Install them only if you are comfortable reviewing local browser extension code. Microsoft notes that developer-mode extensions are intended for testing and can carry security and privacy risk if unsafe extensions are side-loaded.</p>
+
+          <h3>6 · License</h3>
+          <p>All tools are released under the GNU General Public License v3.0. See the <code>LICENSE</code> file in each tool's folder for the full terms.</p>
+
+          <a class="legal-fulllink" href="https://github.com/vigyaanvest-pixel/investortools/blob/main/LEGAL.md">
+            Read the full Legal Notice
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <a class="footer-logo" href="https://vigyaanvest.com" aria-label="VigyaanVest.com">
+        <img src="assets/logo.png" alt="VigyaanVest" />
+        <span>VigyaanVest.com</span>
+      </a>
+      <div class="footer-links">
+        <a href="https://vigyaanvest.com">Main Site</a>
+        <a href="https://github.com/vigyaanvest-pixel/investortools">GitHub Repo</a>
+        <a href="https://github.com/vigyaanvest-pixel/investortools/blob/main/LEGAL.md">Legal</a>
+        <a href="https://github.com/vigyaanvest-pixel/investortools/blob/main/PRIVACY.md">Privacy</a>
+        <a href="https://github.com/vigyaanvest-pixel/investortools/blob/main/ABOUT.md">About</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
