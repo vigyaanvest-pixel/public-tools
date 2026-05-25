@@ -124,6 +124,7 @@ function findTitleNode(node) {
 function getNewsItems() {
   const items = [];
   const seenKeys = new Set();
+  const seenHeadlines = new Set();
 
   for (const selector of SELECTORS) {
     document.querySelectorAll(selector).forEach((node) => {
@@ -132,11 +133,20 @@ function getNewsItems() {
       }
 
       const headline = getHeadlineFromNode(node);
-      const link = node.matches?.("a") ? node : node.closest("a");
+      const canonicalHeadline = normalizeHeadlineKey(headline);
+      const link = node.matches?.("a")
+        ? node
+        : node.querySelector?.("a[href]") || node.closest?.("a");
       const href = link?.href || "";
-      const key = link?.dataset?.id || href || headline.toLowerCase();
+      const key = link?.dataset?.id || href || canonicalHeadline;
 
-      if (!headline || headline.length < 18 || seenKeys.has(key) || isLikelyChromeText(headline)) {
+      if (
+        !headline ||
+        headline.length < 18 ||
+        seenKeys.has(key) ||
+        seenHeadlines.has(canonicalHeadline) ||
+        isLikelyChromeText(headline)
+      ) {
         return;
       }
 
@@ -146,13 +156,48 @@ function getNewsItems() {
       }
 
       seenKeys.add(key);
-      items.push({ key: `${currentSource.id}:${key}`, headline, y: rect.top });
+      seenHeadlines.add(canonicalHeadline);
+      items.push({
+        key: `${currentSource.id}:${key}`,
+        headline,
+        y: rect.top,
+        x: rect.left
+      });
     });
   }
 
-  return items
-    .sort((a, b) => a.y - b.y)
+  return sortNewsItemsByPosition(items)
     .filter((item) => item.headline.length <= 280);
+}
+
+function sortNewsItemsByPosition(items) {
+  const rowTolerance = Number(currentSource.rowTolerancePx) || 12;
+  const remaining = [...items].sort((a, b) => a.y - b.y || a.x - b.x);
+  const ordered = [];
+
+  while (remaining.length) {
+    const rowTop = remaining[0].y;
+    const row = [];
+
+    for (let index = 0; index < remaining.length;) {
+      if (Math.abs(remaining[index].y - rowTop) <= rowTolerance) {
+        row.push(...remaining.splice(index, 1));
+      } else {
+        index += 1;
+      }
+    }
+
+    ordered.push(...row.sort((a, b) => a.x - b.x || a.y - b.y));
+  }
+
+  return ordered;
+}
+
+function normalizeHeadlineKey(headline) {
+  return String(headline || "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function shouldSkipNode(node) {
@@ -316,10 +361,12 @@ chrome.storage.onChanged.addListener((changes, area) => {
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message?.type === "SQUAWK_STATUS") {
     const items = getNewsItems();
+    const topWindow = Number(state.settings.topWindow) || DEFAULT_SETTINGS.topWindow;
     sendResponse({
       ready: state.initialized,
       headlineCount: items.length,
-      sample: items[0]?.headline || ""
+      sample: items[0]?.headline || "",
+      headlines: items.slice(0, topWindow).map((item) => item.headline)
     });
     return true;
   }

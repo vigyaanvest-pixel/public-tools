@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Market Squawk",
   "description": "Reads newly detected market headlines aloud across supported investor news sources. Powered by VigyaanVest.com.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "action": {
     "default_title": "Market Squawk",
     "default_popup": "popup.html",
