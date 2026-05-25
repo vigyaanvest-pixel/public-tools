@@ -49,6 +49,18 @@
       titleSelectors: ["h1", "h2", "h3", ".article__headline", "a[href*='/story/']"],
       noise: ["latest news", "markets", "watchlist"],
       providerPattern: BASE_PROVIDER_PATTERN
+    },
+    {
+      id: "zerodha-pulse",
+      name: "Zerodha Pulse",
+      hostnames: ["pulse.zerodha.com"],
+      pathPrefixes: ["/"],
+      matchPatterns: ["https://pulse.zerodha.com/*"],
+      startUrl: "https://pulse.zerodha.com/",
+      selectors: ["li", "article", ".item", ".box", "a[href]"],
+      titleSelectors: ["h1 a", "h2 a", "h3 a", "a[href]"],
+      noise: ["trending", "news", "latest business", "google playstore", "apple store", "chrome addon store"],
+      providerPattern: "\\b(NDTV Business|Economic Times|Moneycontrol|Business Standard|CNBC-TV18|Reuters|Mint|The Hindu BusinessLine|Financial Express)\\b\\s*[-—:]?\\s*"
     }
   ];
 

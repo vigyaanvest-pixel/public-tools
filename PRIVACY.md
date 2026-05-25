@@ -10,7 +10,7 @@ Every tool in this collection is designed with a single principle: **your data s
 
 ### What the tools do
 
-- Read visible page content on the specific supported sites they are active on (e.g., TradingView, Finviz, MarketWatch for Market Squawk; the Nasdaq Trader halts page for Nasdaq Halt Monitor).
+- Read visible page content on the specific supported sites they are active on (e.g., TradingView, Finviz, MarketWatch, Zerodha Pulse for Market Squawk; the Nasdaq Trader halts page for Nasdaq Halt Monitor).
 - Store your settings locally in browser storage (e.g., voice preferences, alert codes, watchlist symbols, read-memory keys, enabled state).
 - Use browser-native APIs — text-to-speech, browser notifications, local storage — to deliver their features.
 

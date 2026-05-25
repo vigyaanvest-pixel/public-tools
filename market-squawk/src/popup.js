@@ -102,7 +102,7 @@ async function init() {
 
   chrome.runtime.sendMessage({ type: "GET_TAB_STATUS" }, (response) => {
     if (!response?.supported) {
-      setStatus("Open TradingView, Finviz, or MarketWatch.");
+      setStatus("Open TradingView, Finviz, MarketWatch, or Zerodha Pulse.");
       return;
     }
 

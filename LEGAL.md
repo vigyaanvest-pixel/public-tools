@@ -20,7 +20,7 @@ VigyaanVest.com does not warrant that:
 
 - any tool will operate without interruption or error;
 - alerts, notifications, or data readings will be timely, accurate, or complete;
-- source pages (Nasdaq Trader, TradingView, Finviz, MarketWatch, or others) will remain available, structured, or accurate; or
+- source pages (Nasdaq Trader, TradingView, Finviz, MarketWatch, Zerodha Pulse, or others) will remain available, structured, or accurate; or
 - the tools will be free of security vulnerabilities.
 
 ---

@@ -20,6 +20,8 @@ detects("https://www.tradingview.com/news-flow/vH8I2FxE", "tradingview");
 detects("https://finviz.com/news", "finviz");
 detects("https://www.finviz.com/news?v=2", "finviz");
 detects("https://www.marketwatch.com/latest-news?mod=home_ln", "marketwatch");
+detects("https://pulse.zerodha.com/", "zerodha-pulse");
+detects("https://pulse.zerodha.com/?limit=10", "zerodha-pulse");
 
 assert.equal(MarketSquawkSources.detectSourceForUrl("https://finviz.com/quote.ashx?t=NVDA&p=d"), null);
 assert.equal(MarketSquawkSources.detectSourceForUrl("https://finance.yahoo.com/quote/AAPL/news"), null);
@@ -33,6 +35,7 @@ assert.equal(MarketSquawkSources.detectSourceForUrl("https://www.moneycontrol.co
 assert.equal(MarketSquawkSources.detectSourceForUrl("https://www.screener.in/company/RELIANCE/"), null);
 assert.equal(MarketSquawkSources.detectSourceForUrl("https://example.com/news"), null);
 assert.ok(MarketSquawkSources.getAllMatchPatterns().includes("https://finviz.com/news*"));
+assert.ok(MarketSquawkSources.getAllMatchPatterns().includes("https://pulse.zerodha.com/*"));
 MarketSquawkSources.SOURCE_PROFILES.forEach((source) => {
   assert.ok(source.startUrl, `${source.id} should define startUrl`);
   detects(source.startUrl, source.id);

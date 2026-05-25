@@ -21,6 +21,7 @@ Market Squawk is one of the investor tools released around that philosophy: usef
 - TradingView News Flow
 - Finviz
 - MarketWatch
+- Zerodha Pulse
 
 Source detection is automatic. The extension checks the active tab URL and applies the matching source profile from `src/sources.js`.
 
@@ -33,6 +34,7 @@ The extension currently runs on these URL patterns:
 | TradingView News Flow | `https://www.tradingview.com/news-flow/*` |
 | Finviz | `https://finviz.com/news*`, `https://www.finviz.com/news*` |
 | MarketWatch | `https://www.marketwatch.com/latest-news*`, `https://marketwatch.com/latest-news*` |
+| Zerodha Pulse | `https://pulse.zerodha.com/*` |
 
 Suggested starting pages:
 
@@ -41,6 +43,7 @@ Suggested starting pages:
 | TradingView News Flow | `https://www.tradingview.com/news-flow/` |
 | Finviz news | `https://finviz.com/news` |
 | MarketWatch latest news | `https://www.marketwatch.com/latest-news?mod=home_ln` |
+| Zerodha Pulse | `https://pulse.zerodha.com/` |
 
 Host access is intentionally limited to the supported news pages above. If a source page is supported by URL but does not speak useful headlines, add or adjust that source's `selectors` and `titleSelectors` in `src/sources.js`.
 
@@ -85,6 +88,7 @@ Open any of these pages in Edge and Market Squawk will start listening automatic
 | TradingView News Flow | `https://www.tradingview.com/news-flow/` |
 | Finviz news | `https://finviz.com/news` |
 | MarketWatch latest news | `https://www.marketwatch.com/latest-news?mod=home_ln` |
+| Zerodha Pulse | `https://pulse.zerodha.com/` |
 
 The first time it loads a page, existing headlines are marked as already seen so it does not read the entire page at once. New headlines that appear after that are read aloud automatically.
 

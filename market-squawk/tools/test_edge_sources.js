@@ -12,7 +12,8 @@ const port = 9333;
 const sources = [
   ["TradingView News Flow", "https://www.tradingview.com/news-flow/"],
   ["Finviz News", "https://finviz.com/news"],
-  ["MarketWatch", "https://www.marketwatch.com/latest-news?mod=home_ln"]
+  ["MarketWatch", "https://www.marketwatch.com/latest-news?mod=home_ln"],
+  ["Zerodha Pulse", "https://pulse.zerodha.com/"]
 ];
 
 function delay(ms) {

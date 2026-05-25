@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Market Squawk",
   "description": "Reads newly detected market headlines aloud across supported investor news sources. Powered by VigyaanVest.com.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "action": {
     "default_title": "Market Squawk",
     "default_popup": "popup.html",
@@ -29,7 +29,8 @@
         "https://finviz.com/news*",
         "https://www.finviz.com/news*",
         "https://www.marketwatch.com/latest-news*",
-        "https://marketwatch.com/latest-news*"
+        "https://marketwatch.com/latest-news*",
+        "https://pulse.zerodha.com/*"
       ],
       "js": [
         "src/sources.js",
@@ -52,6 +53,7 @@
     "https://finviz.com/news*",
     "https://www.finviz.com/news*",
     "https://www.marketwatch.com/latest-news*",
-    "https://marketwatch.com/latest-news*"
+    "https://marketwatch.com/latest-news*",
+    "https://pulse.zerodha.com/*"
   ]
 }

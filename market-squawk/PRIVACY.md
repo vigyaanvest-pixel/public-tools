@@ -4,7 +4,7 @@ Market Squawk runs entirely in your browser. It reads visible headlines on suppo
 
 ## What this tool does
 
-- Reads visible text on supported pages (TradingView News Flow, Finviz, MarketWatch) where the content script is active.
+- Reads visible text on supported pages (TradingView News Flow, Finviz, MarketWatch, Zerodha Pulse) where the content script is active.
 - Stores settings in browser local storage: enabled state, voice, rate, volume, watch count, seen headline IDs, and source preferences.
 - Uses the browser text-to-speech engine (`speechSynthesis`) to speak headlines locally.
 
