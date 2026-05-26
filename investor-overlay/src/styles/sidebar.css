@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.theme-dark,
+.vv-sidebar-root {
+  --vv-bg: #0f1419;
+  --vv-panel: #1a2332;
+  --vv-border: #2d3a4f;
+  --vv-accent: #3b82f6;
+  --vv-muted: #94a3b8;
+  --vv-text: #e2e8f0;
+  --vv-success: #22c55e;
+  --vv-warn: #f59e0b;
+}
+
+.theme-light {
+  --vv-bg: #f8fafc;
+  --vv-panel: #ffffff;
+  --vv-border: #cbd5e1;
+  --vv-accent: #2563eb;
+  --vv-muted: #64748b;
+  --vv-text: #0f172a;
+  --vv-success: #16a34a;
+  --vv-warn: #d97706;
+}
+
+.vv-sidebar-root {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 13px;
+  color: var(--vv-text);
+}
+
+.vv-sidebar-panel {
+  box-sizing: border-box;
+}
+
+.vv-sidebar-root * {
+  box-sizing: border-box;
+}
+
+.vv-sidebar-root .bg-vv-panel {
+  background-color: var(--vv-panel);
+}
+.vv-sidebar-root .bg-vv-bg {
+  background-color: var(--vv-bg);
+}
+.vv-sidebar-root .border-vv-border {
+  border-color: var(--vv-border);
+}
+.vv-sidebar-root .text-vv-muted {
+  color: var(--vv-muted);
+}
+.vv-sidebar-root .text-vv-accent {
+  color: var(--vv-accent);
+}
+.vv-sidebar-root .text-vv-warn {
+  color: var(--vv-warn);
+}
+.vv-sidebar-root .bg-vv-accent {
+  background-color: var(--vv-accent);
+}

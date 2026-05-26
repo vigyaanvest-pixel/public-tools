@@ -28,7 +28,9 @@ const elements = {
   honorReadMemory: document.getElementById("honorReadMemory"),
   sourceList: document.getElementById("sourceList"),
   readTop: document.getElementById("readTop"),
-  stop: document.getElementById("stop")
+  stop: document.getElementById("stop"),
+  vigyaanvestMore: document.getElementById("vigyaanvestMore"),
+  vigyaanvestMetrics: document.getElementById("vigyaanvestMetrics")
 };
 
 function setStatus(text) {
@@ -242,6 +244,13 @@ document.getElementById("vigyaanvestCta").addEventListener("click", async (event
   event.preventDefault();
   await chrome.tabs.create({ url: "https://vigyaanvest.com" });
   window.close();
+});
+
+elements.vigyaanvestMore.addEventListener("click", () => {
+  const expanded = elements.vigyaanvestMore.getAttribute("aria-expanded") === "true";
+  elements.vigyaanvestMore.setAttribute("aria-expanded", String(!expanded));
+  elements.vigyaanvestMore.textContent = expanded ? "Know more" : "Hide";
+  elements.vigyaanvestMetrics.hidden = expanded;
 });
 
 init();

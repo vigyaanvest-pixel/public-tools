@@ -5,7 +5,9 @@ const fields = {
   watchlistText: document.getElementById("watchlistText"),
   onlyOpenHalts: document.getElementById("onlyOpenHalts"),
   statusText: document.getElementById("statusText"),
-  halts: document.getElementById("halts")
+  halts: document.getElementById("halts"),
+  vigyaanvestMore: document.getElementById("vigyaanvestMore"),
+  vigyaanvestMetrics: document.getElementById("vigyaanvestMetrics")
 };
 
 function sendMessage(message) {
@@ -119,6 +121,13 @@ document.getElementById("testNotification").addEventListener("click", async () =
 document.getElementById("resetMemory").addEventListener("click", async () => {
   await sendMessage({ type: "RESET_ALERT_MEMORY" });
   fields.statusText.textContent = "Alert memory reset.";
+});
+
+fields.vigyaanvestMore.addEventListener("click", () => {
+  const expanded = fields.vigyaanvestMore.getAttribute("aria-expanded") === "true";
+  fields.vigyaanvestMore.setAttribute("aria-expanded", String(!expanded));
+  fields.vigyaanvestMore.textContent = expanded ? "Know more" : "Hide";
+  fields.vigyaanvestMetrics.hidden = expanded;
 });
 
 fields.enabled.addEventListener("change", saveSettings);

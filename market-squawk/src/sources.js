@@ -36,6 +36,14 @@
       titleSelectors: [".news_link-cell a.nn-tab-link", "a.nn-tab-link"],
       skipSelectors: ["use[href*='icons_blogs.svg']"],
       noise: ["ticker", "date", "source", "charts", "screener", "news", "blogs"],
+      blockedHeadlinePatterns: [
+        "\\bFinviz Elite\\b",
+        "\\bpremium features\\b",
+        "\\bReal-time quotes\\b",
+        "\\badvanced visualizations\\b",
+        "\\bbacktesting\\b",
+        "\\bJoin thousands of traders\\b"
+      ],
       providerPattern: BASE_PROVIDER_PATTERN
     },
     {

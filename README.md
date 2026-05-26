@@ -10,6 +10,7 @@ These tools are published for the investor community as inspectable, browser-fir
 
 - [Market Squawk](market-squawk/) - Microsoft Edge / Chrome extension that reads newly detected market headlines aloud from supported public news pages.
 - [Nasdaq Halt Monitor](nasdaq-halt-monitor/) - Microsoft Edge / Chrome extension that monitors Nasdaq Trader current trade halts with watchlist and reason-code alerts.
+- [Symbol 360](investor-overlay/) - Microsoft Edge / Chrome extension with a local-first stock research sidebar, watchlist, Chart tab, earnings/events notes, and dashboard for US and India symbols. Load the included `investor-overlay/dist` folder.
 
 ## About VigyaanVest.com
 

@@ -1,6 +1,6 @@
 # Legal Notice — VigyaanVest.com Investor Tools
 
-This notice applies to all tools published in the VigyaanVest.com Investor Tools collection, including Market Squawk and Nasdaq Halt Monitor, and to any forks, modifications, or redistributions derived from them.
+This notice applies to all tools published in the VigyaanVest.com Investor Tools collection, including Market Squawk, Nasdaq Halt Monitor, and Symbol 360, and to any forks, modifications, or redistributions derived from them.
 
 ---
 
@@ -20,7 +20,7 @@ VigyaanVest.com does not warrant that:
 
 - any tool will operate without interruption or error;
 - alerts, notifications, or data readings will be timely, accurate, or complete;
-- source pages (Nasdaq Trader, TradingView, Finviz, MarketWatch, Zerodha Pulse, or others) will remain available, structured, or accurate; or
+- source pages and data providers (Nasdaq Trader, TradingView, Finviz, MarketWatch, Zerodha Pulse, Yahoo Finance, Screener.in, NSE India, BSE India, SEC EDGAR, or others) will remain available, structured, or accurate; or
 - the tools will be free of security vulnerabilities.
 
 ---
@@ -44,7 +44,7 @@ By downloading, installing, using, modifying, or redistributing any tool in this
 
 - **hold VigyaanVest.com and its contributors harmless** from any claims, losses, damages, liabilities, costs, or expenses (including reasonable legal fees) arising from your use or redistribution;
 - take full responsibility for your own compliance, security review, and usage decisions; and
-- independently verify any market data, halt information, or headlines before acting on them.
+- independently verify any market data, halt information, headlines, earnings dates, chart data, or research notes before acting on them.
 
 ---
 

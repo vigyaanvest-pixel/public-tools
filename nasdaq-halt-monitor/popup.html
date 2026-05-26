@@ -170,7 +170,7 @@
       footer {
         padding-top: 10px;
         border-top: 1px solid var(--line);
-        text-align: center;
+        text-align: left;
       }
 
       footer p {
@@ -181,6 +181,74 @@
       a {
         color: var(--accent);
         text-decoration: none;
+      }
+
+      .powered-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .powered-head span {
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      .brand-link-button {
+        flex: 0 0 auto;
+        min-height: auto;
+        padding: 2px 0;
+        color: var(--accent);
+        background: transparent;
+        border: 0;
+        font-weight: 700;
+      }
+
+      .brand-link-button:hover {
+        text-decoration: underline;
+      }
+
+      .brand-metrics {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin: 8px 0;
+      }
+
+      .brand-metrics[hidden] {
+        display: none;
+      }
+
+      .brand-metric {
+        min-height: 68px;
+        padding: 8px;
+        color: var(--text);
+        background: #0a111a;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+
+      .brand-metric span {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.2;
+      }
+
+      .brand-metric strong {
+        display: block;
+        margin-top: 5px;
+        color: var(--text);
+        font-size: 23px;
+        font-weight: 500;
+        line-height: 1;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 12px;
       }
     </style>
   </head>
@@ -246,9 +314,43 @@
       </section>
 
       <footer class="subtle">
-        <span>Powered by VigyaanVest.com</span>
-        <p>AI stock signals with a public, verifiable track record.</p>
-        <a href="https://vigyaanvest.com" target="_blank" rel="noreferrer">Explore VigyaanVest.com</a>
+        <div class="powered-head">
+          <div>
+            <span>Powered by VigyaanVest.com</span>
+            <p>AI stock signals with a public, verifiable track record.</p>
+          </div>
+          <button id="vigyaanvestMore" class="brand-link-button" type="button" aria-expanded="false">Know more</button>
+        </div>
+        <section id="vigyaanvestMetrics" class="brand-metrics" hidden>
+          <a class="brand-metric" href="https://datastudio.google.com/s/vmGtN05jXVs#cd-fz9gvyz7sd" target="_blank" rel="noreferrer">
+            <span>Success Rate (%)</span>
+            <strong>87.7%</strong>
+          </a>
+          <a class="brand-metric" href="https://datastudio.google.com/s/jsRpNlQ1ZVA#cd-djufs82lvd" target="_blank" rel="noreferrer">
+            <span>Avg. Return per Win</span>
+            <strong>16.44%</strong>
+          </a>
+          <a class="brand-metric" href="https://datastudio.google.com/u/0/reporting/73029b9f-3274-4447-b49a-a0654a881d96/page/kIV1C" target="_blank" rel="noreferrer">
+            <span>Avg. Holding Days per Win</span>
+            <strong>15.19</strong>
+          </a>
+          <a class="brand-metric" href="https://datastudio.google.com/u/0/reporting/73029b9f-3274-4447-b49a-a0654a881d96/page/kIV1C" target="_blank" rel="noreferrer">
+            <span>Alerts (Closed)</span>
+            <strong>358.0</strong>
+          </a>
+          <a class="brand-metric" href="https://datastudio.google.com/u/0/reporting/73029b9f-3274-4447-b49a-a0654a881d96/page/kIV1C" target="_blank" rel="noreferrer">
+            <span>Best Trade (%)</span>
+            <strong>177.58%</strong>
+          </a>
+          <a class="brand-metric" href="https://datastudio.google.com/u/0/reporting/73029b9f-3274-4447-b49a-a0654a881d96/page/kIV1C" target="_blank" rel="noreferrer">
+            <span>Normalized Monthly Return (%)</span>
+            <strong>32.47%</strong>
+          </a>
+        </section>
+        <div class="footer-links">
+          <a href="https://vigyaanvest.com" target="_blank" rel="noreferrer">Explore VigyaanVest.com</a>
+          <a href="https://datastudio.google.com/u/0/reporting/73029b9f-3274-4447-b49a-a0654a881d96/page/kIV1C" target="_blank" rel="noreferrer">Show performance details</a>
+        </div>
       </footer>
     </main>
 

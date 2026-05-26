@@ -142,7 +142,7 @@ async function speak(text, { force = false } = {}) {
     return;
   }
 
-  const alreadyFormatted = /^(Analyst note|Earnings update|Deal watch|News alert)\./i.test(text);
+  const alreadyFormatted = /\.\s+Ticker\s+[A-Z](?:\s+[A-Z])?(?:,|\.)/i.test(text);
   const spokenText = settings.smartSpeech && !alreadyFormatted
     ? formatForSpeech(text)
     : text;
@@ -238,6 +238,7 @@ function formatForSpeech(headline) {
   const leadTicker = tickers.find((ticker) => COMPANY_HINTS.has(ticker));
 
   text = text
+    .replace(/^(Analyst note|Earnings update|Deal watch|News alert)\.\s*/i, "")
     .replace(/>([A-Z]{1,6})(?:\b|$)/g, "")
     .replace(/\bBRIEF[-:]\s*/i, "")
     .replace(/\bQ([1-4])\b/gi, "quarter $1")
@@ -264,7 +265,7 @@ function formatForSpeech(headline) {
 
   text = improveQuarterPhrase(text);
   text = improveMarketPhrases(text);
-  text = addContextLead(text, leadTicker);
+  text = addCompanyContext(text, leadTicker);
   text = addTickerTail(text, tickers);
 
   return text;
@@ -282,23 +283,15 @@ function improveQuarterPhrase(text) {
     .replace(/\bquarter 4\b/gi, "fourth quarter");
 }
 
-function addContextLead(text, leadTicker) {
-  if (/price target|maintained|upgraded|downgraded|initiated/i.test(text)) {
-    return `Analyst note. ${text}`;
-  }
-
+function addCompanyContext(text, leadTicker) {
   if (/revenue|E P S|earnings|guidance|forecast|sees/i.test(text)) {
     const company = leadTicker ? COMPANY_HINTS.get(leadTicker) : "";
     return company && !text.toLowerCase().startsWith(company.toLowerCase())
-      ? `Earnings update. ${company}. ${text}`
-      : `Earnings update. ${text}`;
+      ? `${company}. ${text}`
+      : text;
   }
 
-  if (/merger|acquire|acquisition|buyout|stake|deal/i.test(text)) {
-    return `Deal watch. ${text}`;
-  }
-
-  return `News alert. ${text}`;
+  return text;
 }
 
 function addTickerTail(text, tickers) {

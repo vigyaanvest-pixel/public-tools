@@ -171,11 +171,18 @@ button:hover {
 
 .powered {
   display: grid;
-  gap: 3px;
+  gap: 8px;
   padding-top: 12px;
   border-top: 1px solid #262c36;
   color: #8f9aaa;
   font-size: 12px;
+}
+
+.powered-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .powered span {
@@ -194,9 +201,66 @@ button:hover {
   text-decoration: none;
 }
 
+.dashboard-link {
+  color: #4bd0bc;
+}
+
 .powered a:hover {
   color: #4bd0bc;
   text-decoration: underline;
+}
+
+.brand-link-button {
+  flex: 0 0 auto;
+  min-height: auto;
+  width: auto;
+  border: 0;
+  padding: 2px 0;
+  background: transparent;
+  color: #4bd0bc;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.brand-link-button:hover {
+  background: transparent;
+  color: #70e7d7;
+  text-decoration: underline;
+}
+
+.brand-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.brand-metrics[hidden] {
+  display: none;
+}
+
+.brand-metric {
+  min-height: 66px;
+  width: auto;
+  padding: 8px;
+  border: 1px solid #303642;
+  border-radius: 6px;
+  background: #171b22;
+}
+
+.powered .brand-metric span {
+  display: block;
+  color: #aab4c1;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.brand-metric strong {
+  display: block;
+  margin-top: 5px;
+  color: #f2f5f8;
+  font-size: 22px;
+  line-height: 1;
 }
 
 .switch {

@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "Symbol 360",
+  "description": "Full-circle local stock research — watchlist, thesis notes, and page enrichment in your sidebar.",
+  "version": "0.1.1",
+  "action": {
+    "default_title": "Symbol 360",
+    "default_popup": "src/popup/index.html",
+    "default_icon": {
+      "16": "assets/icon-16.png",
+      "32": "assets/icon-32.png",
+      "48": "assets/icon-48.png",
+      "128": "assets/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "assets/icon-16.png",
+    "32": "assets/icon-32.png",
+    "48": "assets/icon-48.png",
+    "128": "assets/icon-128.png"
+  },
+  "options_ui": {
+    "page": "src/options/index.html",
+    "open_in_tab": true
+  },
+  "side_panel": {
+    "default_path": "src/sidebar-panel/index.html"
+  },
+  "background": {
+    "service_worker": "src/background/service-worker.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/index.ts"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": ["storage", "activeTab", "scripting", "tabs", "sidePanel"],
+  "host_permissions": [
+    "https://finance.yahoo.com/*",
+    "https://query1.finance.yahoo.com/*",
+    "https://query2.finance.yahoo.com/*",
+    "https://www.nseindia.com/*",
+    "https://www.screener.in/*",
+    "https://www.sec.gov/*",
+    "https://finviz.com/*",
+    "https://www.tradingview.com/*",
+    "https://s3.tradingview.com/*"
+  ]
+}
